@@ -4,6 +4,9 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
 
+def preprocess(sentence):
+    return " ".join(list(sentence))
+
 class MyLR(LogisticRegression):
     def predict_proba(self, X):
         if not hasattr(self, "coef_"):
