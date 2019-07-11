@@ -4,8 +4,10 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
 
+
 def preprocess(sentence):
     return " ".join(list(sentence))
+
 
 class MyLR(LogisticRegression):
     def predict_proba(self, X):
@@ -21,6 +23,8 @@ class MyLR(LogisticRegression):
             np.exp(prob, prob)
             prob += 1
             np.reciprocal(prob, prob)
+            if prob.ndim == 1:
+                return np.vstack([1 - prob, prob]).T
             return prob
         else:
             decision = self.decision_function(X)
